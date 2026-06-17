@@ -7,6 +7,8 @@
 
 Semantic version control for SAP SuccessFactors configuration exports.
 
+![SF Change Ledger launch visual](assets/linkedin-launch-card.png)
+
 SF Change Ledger turns raw SuccessFactors metadata and picklist exports into a
 consultant-readable change pack: what changed, why it matters, what should be
 tested, and what can go into a CAB or configuration review pack.
