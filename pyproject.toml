@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sf-change-ledger"
+version = "0.1.0"
+description = "Semantic version ledger for SAP SuccessFactors configuration exports"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+  { name = "Sahir Vhora" },
+]
+requires-python = ">=3.11"
+dependencies = [
+  "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+web = ["Flask>=3.0"]
+dev = ["Flask>=3.0", "pytest>=8.0", "ruff>=0.6"]
+
+[project.urls]
+Homepage = "https://sahirvhora.github.io/sf-change-ledger/"
+Repository = "https://github.com/SahirVhora/sf-change-ledger"
+Issues = "https://github.com/SahirVhora/sf-change-ledger/issues"
+
+[project.scripts]
+sf-change-ledger = "sf_change_ledger.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

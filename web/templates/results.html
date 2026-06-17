@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Comparison results · SF Change Ledger{% endblock %}
+{% block content %}
+<section class="results-header">
+  <div>
+    <a class="back-link" href="{{ url_for('index') }}">← New comparison</a>
+    <p class="eyebrow">Comparison complete</p>
+    <h1>{{ result.left_label }} → {{ result.right_label }}</h1>
+    <p>{{ before_files|length }} before file(s), {{ after_files|length }} after file(s)</p>
+  </div>
+  <div class="download-actions">
+    <a class="primary-button" href="{{ url_for('download', report_id=report_id, format_name='xlsx') }}">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+      Excel
+    </a>
+    <a class="secondary-button" href="{{ url_for('download', report_id=report_id, format_name='html') }}">HTML</a>
+    <a class="secondary-button" href="{{ url_for('download', report_id=report_id, format_name='md') }}">Markdown</a>
+    <a class="icon-button" title="Download JSON" aria-label="Download JSON" href="{{ url_for('download', report_id=report_id, format_name='json') }}">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v4m13-6h3a2 2 0 0 1 2 2v4M8 21H5a2 2 0 0 1-2-2v-4m13 6h3a2 2 0 0 0 2-2v-4M9 8l-2 4 2 4m6-8 2 4-2 4"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="metrics-strip">
+  <div><strong>{{ result.changes|length }}</strong><span>Total changes</span></div>
+  <div class="critical-metric"><strong>{{ result.by_severity.CRITICAL }}</strong><span>Critical</span></div>
+  <div class="high-metric"><strong>{{ result.by_severity.HIGH }}</strong><span>High</span></div>
+  <div><strong>{{ result.modified|length }}</strong><span>Modified</span></div>
+  <div><strong>{{ result.added|length }}</strong><span>Added</span></div>
+  <div><strong>{{ result.removed|length }}</strong><span>Removed</span></div>
+</section>
+
+<section class="results-toolbar">
+  <div class="search-field">
+    <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="change_search" type="search" placeholder="Search object, property, or explanation">
+  </div>
+  <div class="filter-group" role="group" aria-label="Filter by severity">
+    <button class="filter-button active" type="button" data-severity="all">All</button>
+    <button class="filter-button" type="button" data-severity="critical">Critical</button>
+    <button class="filter-button" type="button" data-severity="high">High</button>
+    <button class="filter-button" type="button" data-severity="medium">Medium</button>
+    <button class="filter-button" type="button" data-severity="low">Low</button>
+  </div>
+</section>
+
+<section class="changes-table-wrap">
+  <table class="changes-table">
+    <thead><tr><th>Severity</th><th>Change</th><th>Object</th><th>Why it matters</th><th>Details</th></tr></thead>
+    <tbody id="changes_body">
+      {% for change in result.changes %}
+      <tr class="change-row" data-severity="{{ change.severity|lower }}" data-search="{{ change.label }} {{ change.object_type }} {{ change.explanation }} {% for prop in change.property_changes %}{{ prop.path }}{% endfor %}">
+        <td><span class="severity-badge {{ change.severity|lower }}">{{ change.severity }}</span></td>
+        <td><strong>{{ change.kind.value }}</strong><span>{{ change.object_type }}</span></td>
+        <td><strong>{{ change.label }}</strong><code>{{ change.object_id }}</code></td>
+        <td>{{ change.explanation }}</td>
+        <td>
+          {% if change.property_changes %}
+          <details>
+            <summary>{{ change.property_changes|length }} field change(s)</summary>
+            <div class="property-list">
+              {% for prop in change.property_changes %}
+              <div><code>{{ prop.path }}</code><span>{{ prop.before if prop.before is not none else '(not set)' }} → {{ prop.after if prop.after is not none else '(not set)' }}</span></div>
+              {% endfor %}
+            </div>
+          </details>
+          {% else %}<span class="muted">Object-level change</span>{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="empty-filter" id="empty_filter" hidden>No changes match the current filters.</div>
+</section>
+
+<section class="testing-section">
+  <div><p class="eyebrow">Regression scope</p><h2>Recommended testing</h2></div>
+  <ul>
+    {% set tests = [] %}
+    {% for change in result.changes %}
+      {% for test in change.test_focus %}
+        {% if test not in tests %}
+          {% set _ = tests.append(test) %}
+          <li><input type="checkbox" id="test_{{ tests|length }}"><label for="test_{{ tests|length }}">{{ test }}</label></li>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% if not tests %}<li>No regression activities were generated.</li>{% endif %}
+  </ul>
+</section>
+{% endblock %}

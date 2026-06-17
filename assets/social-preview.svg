@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#eef4f5"/>
+  <rect y="0" width="1200" height="76" fill="#17324d"/>
+  <g transform="translate(54 18) scale(.62)">
+    <rect x="2" y="2" width="60" height="60" rx="12" fill="#17324d" stroke="#fff" stroke-width="2"/>
+    <path d="M14 15h24a5 5 0 0 1 5 5v29H19a5 5 0 0 1-5-5V15Z" fill="#f8fbfb" stroke="#9fb4be" stroke-width="2"/>
+    <path d="M43 20h4a3 3 0 0 1 3 3v26h-7V20Z" fill="#0f766e"/>
+    <path d="M21 24h14M21 31h14M21 38h8" stroke="#55717e" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="38" cy="41" r="10" fill="#f59e0b" stroke="#17324d" stroke-width="2"/>
+    <path d="M33 41h10M39 37l4 4-4 4" fill="none" stroke="#17324d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="105" y="49" fill="#fff" font-family="Arial, sans-serif" font-size="25" font-weight="700">SF Change Ledger</text>
+  <text x="64" y="173" fill="#17324d" font-family="Arial, sans-serif" font-size="58" font-weight="700">Know what changed.</text>
+  <text x="64" y="237" fill="#0f766e" font-family="Arial, sans-serif" font-size="58" font-weight="700">Know what to test.</text>
+  <text x="66" y="292" fill="#536b77" font-family="Arial, sans-serif" font-size="24">Semantic configuration comparison for SAP SuccessFactors exports</text>
+  <rect x="64" y="346" width="1072" height="220" rx="8" fill="#fff" stroke="#cbdadd" stroke-width="2"/>
+  <rect x="64" y="346" width="1072" height="46" rx="8" fill="#17324d"/>
+  <circle cx="91" cy="369" r="6" fill="#f59e0b"/>
+  <text x="112" y="377" fill="#fff" font-family="Arial, sans-serif" font-size="17" font-weight="700">Before snapshot → After snapshot</text>
+  <rect x="91" y="418" width="126" height="32" fill="#fee2e2"/>
+  <text x="108" y="440" fill="#b91c1c" font-family="Arial, sans-serif" font-size="14" font-weight="700">CRITICAL</text>
+  <text x="244" y="440" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">EmpJob.department became mandatory</text>
+  <text x="244" y="468" fill="#60717c" font-family="Arial, sans-serif" font-size="15">Test create/update flows and inbound integrations.</text>
+  <rect x="91" y="493" width="126" height="32" fill="#ffedd5"/>
+  <text x="122" y="515" fill="#c2410c" font-family="Arial, sans-serif" font-size="14" font-weight="700">HIGH</text>
+  <text x="244" y="515" fill="#17324d" font-family="Arial, sans-serif" font-size="18" font-weight="700">eventReason.DATACHG changed status</text>
+  <text x="940" y="535" fill="#0f766e" font-family="Arial, sans-serif" font-size="18" font-weight="700">Excel · HTML · Markdown</text>
+</svg>

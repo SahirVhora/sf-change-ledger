@@ -1,0 +1,24 @@
+{
+  "picklists": [
+    {
+      "picklistId": "eventReason",
+      "values": [
+        {
+          "externalCode": "HIRNEW",
+          "label_en": "New Hire",
+          "status": "ACTIVE"
+        },
+        {
+          "externalCode": "DATACHG",
+          "label_en": "Employee Data Change",
+          "status": "INACTIVE"
+        },
+        {
+          "externalCode": "PROMO",
+          "label_en": "Promotion",
+          "status": "ACTIVE"
+        }
+      ]
+    }
+  ]
+}

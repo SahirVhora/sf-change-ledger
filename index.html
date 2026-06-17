@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SF Change Ledger | SuccessFactors Configuration Change Analysis</title>
+  <meta name="description" content="Open-source semantic comparison for SAP SuccessFactors metadata and picklist exports. Identify configuration changes, assess risk, define regression tests, and export Excel, HTML, Markdown, or JSON reports.">
+  <meta name="keywords" content="SAP SuccessFactors configuration comparison, SuccessFactors metadata diff, picklist comparison, SAP SF change control, SuccessFactors regression testing, HRIS configuration audit">
+  <meta name="author" content="Sahir Vhora">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sahirvhora.github.io/sf-change-ledger/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SF Change Ledger">
+  <meta property="og:description" content="Know what changed and what to test after a SuccessFactors configuration transport or release.">
+  <meta property="og:url" content="https://sahirvhora.github.io/sf-change-ledger/">
+  <meta property="og:image" content="https://sahirvhora.github.io/sf-change-ledger/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SF Change Ledger">
+  <meta name="twitter:description" content="Semantic SuccessFactors configuration comparison with risk scoring and test recommendations.">
+  <meta name="twitter:image" content="https://sahirvhora.github.io/sf-change-ledger/assets/social-preview.png">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    :root {
+      --ink: #17324d;
+      --teal: #0f766e;
+      --amber: #f59e0b;
+      --muted: #58707c;
+      --line: #cbdadd;
+      --paper: #fff;
+      --wash: #eef4f5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--wash);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+    header {
+      height: 64px;
+      background: var(--ink);
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+    .nav, main, footer div { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .brand img { width: 34px; height: 34px; }
+    nav a { color: #d4e1e7; text-decoration: none; margin-left: 20px; font-size: 14px; }
+    .hero { min-height: calc(100vh - 64px); padding: 58px 0 32px; display: flex; flex-direction: column; }
+    .eyebrow { margin: 0 0 14px; color: var(--teal); font-size: 13px; font-weight: 800; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 900px; font-size: clamp(42px, 7vw, 76px); line-height: 1; }
+    .lead { max-width: 760px; margin: 20px 0 0; color: var(--muted); font-size: 19px; line-height: 1.55; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 17px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 750;
+    }
+    .primary { color: white; background: var(--teal); }
+    .secondary { color: var(--ink); background: white; border: 1px solid var(--line); }
+    .product-shot {
+      margin-top: 42px;
+      width: 100%;
+      flex: 1;
+      min-height: 330px;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid var(--line);
+      box-shadow: 0 20px 50px rgba(23, 50, 77, .14);
+    }
+    .section { padding: 70px 0; border-top: 1px solid var(--line); }
+    .section h2 { margin: 0 0 10px; font-size: 34px; }
+    .section > p { max-width: 720px; color: var(--muted); line-height: 1.6; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 30px; background: var(--line); border: 1px solid var(--line); }
+    .item { background: var(--paper); padding: 24px; min-height: 175px; }
+    .item strong { display: block; font-size: 18px; margin-bottom: 8px; }
+    .item p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
+    .step { padding: 20px; background: var(--ink); color: white; min-height: 140px; }
+    .step span { color: #7dd3c7; font-size: 12px; font-weight: 800; }
+    .step strong { display: block; margin-top: 10px; font-size: 18px; }
+    .step p { color: #d4e1e7; font-size: 14px; line-height: 1.5; }
+    pre { overflow-x: auto; background: #10283d; color: #edf6f7; padding: 20px; border-radius: 5px; }
+    footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    footer div { display: flex; justify-content: space-between; gap: 20px; }
+    footer a { color: var(--teal); }
+    @media (max-width: 760px) {
+      nav { display: none; }
+      .hero { min-height: auto; padding-top: 42px; }
+      .product-shot { min-height: 240px; }
+      .grid, .flow { grid-template-columns: 1fr; }
+      footer div { flex-direction: column; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SF Change Ledger",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "description": "Semantic configuration change analysis for SAP SuccessFactors metadata and picklist exports.",
+    "url": "https://sahirvhora.github.io/sf-change-ledger/",
+    "downloadUrl": "https://github.com/SahirVhora/sf-change-ledger",
+    "author": {"@type": "Person", "name": "Sahir Vhora"},
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="brand"><img src="favicon.svg" alt="">SF Change Ledger</div>
+      <nav><a href="#capabilities">Capabilities</a><a href="#workflow">Workflow</a><a href="https://github.com/SahirVhora/sf-change-ledger">GitHub</a></nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">SuccessFactors change control</p>
+      <h1>Know what changed. Know what to test.</h1>
+      <p class="lead">Compare before and after SuccessFactors configuration exports, remove XML noise, identify meaningful risk, and produce a practical test pack for implementation and support teams.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/SahirVhora/sf-change-ledger">View on GitHub</a>
+        <a class="button secondary" href="#workflow">See the workflow</a>
+      </div>
+      <img class="product-shot" src="assets/product-screenshot.png" alt="SF Change Ledger upload interface for before and after configuration snapshots">
+    </section>
+
+    <section class="section" id="capabilities">
+      <p class="eyebrow">What it delivers</p>
+      <h2>Configuration evidence without raw diff noise</h2>
+      <p>The tool converts OData metadata XML and picklist exports into stable configuration objects before comparison.</p>
+      <div class="grid">
+        <article class="item"><strong>Semantic comparison</strong><p>Detect added, removed, and modified fields or picklist values by stable object ID.</p></article>
+        <article class="item"><strong>Risk classification</strong><p>Surface mandatory-field changes, type and length changes, removals, and status changes.</p></article>
+        <article class="item"><strong>Regression focus</strong><p>Translate configuration differences into concrete transaction and integration tests.</p></article>
+        <article class="item"><strong>Excel workbook</strong><p>Export Summary, Changes, Property Diffs, and Test Checklist worksheets.</p></article>
+        <article class="item"><strong>Local processing</strong><p>Run against exported files without sending tenant configuration to an external service.</p></article>
+        <article class="item"><strong>Multiple formats</strong><p>Download Excel, HTML, Markdown, or JSON for technical and governance audiences.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <p class="eyebrow">Workflow</p>
+      <h2>From two exports to an actionable review pack</h2>
+      <div class="flow">
+        <article class="step"><span>01</span><strong>Upload Before</strong><p>Select baseline metadata XML and optional picklist JSON or CSV.</p></article>
+        <article class="step"><span>02</span><strong>Upload After</strong><p>Select the configuration captured after the transport or change.</p></article>
+        <article class="step"><span>03</span><strong>Review Risk</strong><p>Filter findings by severity, object, property, and explanation.</p></article>
+        <article class="step"><span>04</span><strong>Export Evidence</strong><p>Download the Excel workbook or a portable HTML, Markdown, or JSON report.</p></article>
+      </div>
+      <pre><code>pip install -r requirements-web.txt
+PYTHONPATH=src python3 web/app.py
+# Open http://127.0.0.1:5075</code></pre>
+    </section>
+  </main>
+  <footer><div><span>SF Change Ledger is an independent open-source tool and is not affiliated with SAP SE.</span><span><a href="https://sahirvhora.github.io/sf-compass/">Explore the SF Compass suite</a></span></div></footer>
+</body>
+</html>

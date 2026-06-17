@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx
+  xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+  xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <edmx:DataServices>
+    <Schema Namespace="SFOData">
+      <EntityType Name="EmpJob">
+        <Property Name="userId" Type="Edm.String" Nullable="false" MaxLength="100" />
+        <Property Name="department" Type="Edm.String" Nullable="false" MaxLength="32" />
+        <Property Name="customString1" Type="Edm.String" Nullable="true" MaxLength="64" />
+        <Property Name="customString2" Type="Edm.String" Nullable="true" MaxLength="32" />
+      </EntityType>
+      <EntityType Name="Position">
+        <Property Name="code" Type="Edm.String" Nullable="false" MaxLength="128" />
+        <Property Name="department" Type="Edm.String" Nullable="true" MaxLength="32" />
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

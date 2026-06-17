@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Compare snapshots · SF Change Ledger{% endblock %}
+{% block content %}
+<section class="workspace-header">
+  <div>
+    <p class="eyebrow">New comparison</p>
+    <h1>Compare configuration snapshots</h1>
+    <p>Upload the exported configuration from before and after your change.</p>
+  </div>
+  <div class="privacy-note">
+    <strong>Local processing</strong>
+    <span>Files are processed in temporary storage on this machine.</span>
+  </div>
+</section>
+
+{% if errors %}
+<section class="error-banner" role="alert">
+  <strong>Comparison could not run</strong>
+  <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+</section>
+{% endif %}
+
+<form class="comparison-form" method="post" action="{{ url_for('compare') }}" enctype="multipart/form-data">
+  <section class="upload-grid">
+    <div class="upload-panel">
+      <div class="step-number">1</div>
+      <div class="panel-heading">
+        <h2>Before snapshot</h2>
+        <p>Baseline configuration before the release or transport.</p>
+      </div>
+      <label class="field-label" for="before_label">Snapshot label</label>
+      <input id="before_label" name="before_label" type="text" value="Before change" maxlength="80">
+      <label class="file-picker" for="before_files">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>
+        <span>Choose Before files</span>
+        <small>XML metadata, picklist JSON or CSV</small>
+      </label>
+      <input class="file-input" id="before_files" name="before_files" type="file" accept=".xml,.json,.csv" multiple required>
+      <div class="file-list" id="before_file_list" aria-live="polite">No files selected</div>
+    </div>
+
+    <div class="upload-panel">
+      <div class="step-number">2</div>
+      <div class="panel-heading">
+        <h2>After snapshot</h2>
+        <p>Configuration after the release, transport, or manual change.</p>
+      </div>
+      <label class="field-label" for="after_label">Snapshot label</label>
+      <input id="after_label" name="after_label" type="text" value="After change" maxlength="80">
+      <label class="file-picker" for="after_files">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>
+        <span>Choose After files</span>
+        <small>XML metadata, picklist JSON or CSV</small>
+      </label>
+      <input class="file-input" id="after_files" name="after_files" type="file" accept=".xml,.json,.csv" multiple required>
+      <div class="file-list" id="after_file_list" aria-live="polite">No files selected</div>
+    </div>
+  </section>
+
+  <section class="form-actions">
+    <div>
+      <strong>Supported in this version</strong>
+      <span>OData $metadata XML and picklist exports</span>
+    </div>
+    <button class="primary-button" type="submit">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3v18h18M7 16l4-4 3 3 5-7"/></svg>
+      Generate comparison
+    </button>
+  </section>
+</form>
+{% endblock %}
