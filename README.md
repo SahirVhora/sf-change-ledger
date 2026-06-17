@@ -30,7 +30,20 @@ extension plan.
 
 **Public site:** https://sahirvhora.github.io/sf-change-ledger/
 
+The public site is the complete browser application. Users can select Before
+and After exports, review findings, and download reports without installing
+Python or running a server. Processing stays in the browser.
+
 ## Quick Start
+
+For most users, open the browser application:
+
+**https://sahirvhora.github.io/sf-change-ledger/**
+
+Select the Before and After files and click **Generate comparison**. Nothing is
+installed or uploaded to a server.
+
+For CLI use:
 
 ```bash
 python3 -m sf_change_ledger compare \
@@ -50,6 +63,13 @@ python3 -m sf_change_ledger compare \
 ```
 
 ## Web UI
+
+### Browser version
+
+Open https://sahirvhora.github.io/sf-change-ledger/ and use the application
+directly. No installation, terminal, login, or tenant connection is required.
+
+### Local Flask version
 
 ```bash
 pip install -r requirements-web.txt
