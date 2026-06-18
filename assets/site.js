@@ -284,6 +284,12 @@ function counts(result) {
   return output;
 }
 
+function uniqueTests(result) {
+  return Array.from(
+    new Set(result.changes.flatMap((change) => change.testFocus))
+  ).sort();
+}
+
 function displayValue(value) {
   if (value === undefined || value === null) return "(not set)";
   if (typeof value === "object") return JSON.stringify(value);
@@ -320,7 +326,7 @@ function renderResults(beforeFiles, afterFiles) {
     </tr>`;
   }).join("");
 
-  const tests = Array.from(new Set(result.changes.map((change) => change.testFocus))).sort();
+  const tests = uniqueTests(result);
   document.getElementById("testing_list").innerHTML = tests.length
     ? tests.map((test, index) => `<li><input type="checkbox" id="test_${index}"><label for="test_${index}">${escapeHtml(test)}</label></li>`).join("")
     : "<li>No regression activities were generated.</li>";
@@ -379,7 +385,7 @@ function applyFilters() {
 function markdownReport() {
   const result = state.result;
   const summary = counts(result);
-  const tests = Array.from(new Set(result.changes.map((change) => change.testFocus))).sort();
+  const tests = uniqueTests(result);
   const lines = [
     "# SF Change Ledger Report", "",
     `Compared \`${result.leftLabel}\` to \`${result.rightLabel}\`.`, "",
@@ -419,7 +425,7 @@ function htmlReport() {
 function excelRows() {
   const result = state.result;
   const summary = counts(result);
-  const tests = Array.from(new Set(result.changes.map((change) => change.testFocus))).sort();
+  const tests = uniqueTests(result);
   return {
     Summary: [
       ["SF Change Ledger", "Configuration change report"],
