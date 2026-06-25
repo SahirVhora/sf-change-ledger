@@ -3,6 +3,8 @@ from __future__ import annotations
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from defusedxml.ElementTree import parse as _safe_parse
+
 from sf_change_ledger.models import ConfigObject
 from sf_change_ledger.normalise import normalise_value
 
@@ -23,7 +25,7 @@ def _attribute(element: ET.Element, name: str) -> str | None:
 
 
 def parse_metadata_file(path: Path) -> list[ConfigObject]:
-    tree = ET.parse(path)
+    tree = _safe_parse(path)
     root = tree.getroot()
     objects: list[ConfigObject] = []
 
