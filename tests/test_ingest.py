@@ -2,7 +2,6 @@ from pathlib import Path
 
 from sf_change_ledger.ingest import load_snapshot
 
-
 ROOT = Path(__file__).parents[1]
 
 

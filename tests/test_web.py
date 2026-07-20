@@ -1,7 +1,6 @@
 from io import BytesIO
 
 from openpyxl import load_workbook
-
 from web.app import REPORTS, create_app
 
 

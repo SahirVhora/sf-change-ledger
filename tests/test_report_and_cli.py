@@ -2,7 +2,6 @@ from pathlib import Path
 
 from sf_change_ledger.cli import main
 
-
 ROOT = Path(__file__).parents[1]
 
 

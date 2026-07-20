@@ -5,8 +5,8 @@ import sys
 
 from sf_change_ledger.diff import compare_snapshots
 from sf_change_ledger.ingest import load_snapshot
-from sf_change_ledger.risk import assess_diff
 from sf_change_ledger.report import write_report
+from sf_change_ledger.risk import assess_diff
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -21,9 +21,7 @@ def build_parser() -> argparse.ArgumentParser:
     compare.add_argument("--right", required=True, help="New snapshot folder")
     compare.add_argument("--left-label", help="Friendly label for the baseline snapshot")
     compare.add_argument("--right-label", help="Friendly label for the new snapshot")
-    compare.add_argument(
-        "--out", required=True, help="Report path (.md, .html, .xlsx, or .json)"
-    )
+    compare.add_argument("--out", required=True, help="Report path (.md, .html, .xlsx, or .json)")
     return parser
 
 

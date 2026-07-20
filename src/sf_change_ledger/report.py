@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import html
 import json
-from io import BytesIO
 from dataclasses import asdict
+from io import BytesIO
 from pathlib import Path
 
 from openpyxl import Workbook
@@ -125,7 +125,9 @@ def _write_testing_sheet(sheet, result: DiffResult) -> None:
         for test in change.test_focus:
             rows.setdefault(test, set()).add(change.severity)
     for test, severities in sorted(rows.items()):
-        ordered = sorted(severities, key=lambda item: ["CRITICAL", "HIGH", "MEDIUM", "LOW"].index(item))
+        ordered = sorted(
+            severities, key=lambda item: ["CRITICAL", "HIGH", "MEDIUM", "LOW"].index(item)
+        )
         sheet.append(["Not started", test, ", ".join(ordered)])
     _style_header(sheet, 1)
     _format_table_sheet(sheet, [16, 86, 22])
@@ -244,7 +246,7 @@ def render_html(result: DiffResult) -> str:
             f"<table><thead><tr><th>Property</th><th>Before</th><th>After</th></tr></thead>"
             f"<tbody>{property_rows}</tbody></table>"
             if property_rows
-            else "<p class=\"muted\">No property-level details for this change.</p>"
+            else '<p class="muted">No property-level details for this change.</p>'
         )
         rows.append(
             f"""<section class="change">
