@@ -2,12 +2,10 @@ from io import BytesIO
 from pathlib import Path
 
 from openpyxl import load_workbook
-
 from sf_change_ledger.diff import compare_snapshots
 from sf_change_ledger.ingest import load_snapshot
 from sf_change_ledger.report import render_excel, write_report
 from sf_change_ledger.risk import assess_diff
-
 
 ROOT = Path(__file__).parents[1]
 

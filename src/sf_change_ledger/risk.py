@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from sf_change_ledger.models import ChangeKind, DiffResult, ObjectChange
 
-
 SEVERITY_ORDER = {"LOW": 1, "MEDIUM": 2, "HIGH": 3, "CRITICAL": 4}
 
 
@@ -46,9 +45,13 @@ def assess_change(change: ObjectChange) -> tuple[str, str, list[str]]:
         )
 
     paths = {item.path for item in change.property_changes}
-    before_after = {(item.path, str(item.before), str(item.after)) for item in change.property_changes}
+    before_after = {
+        (item.path, str(item.before), str(item.after)) for item in change.property_changes
+    }
 
-    if _path_changed_to(paths, before_after, "nullable", "false") or _path_changed_to(paths, before_after, "required", "true"):
+    if _path_changed_to(paths, before_after, "nullable", "false") or _path_changed_to(
+        paths, before_after, "required", "true"
+    ):
         return (
             "CRITICAL",
             "A field appears to have become mandatory. This can block hire, job change, import, or integration flows if the value is missing.",
@@ -76,10 +79,18 @@ def assess_change(change: ObjectChange) -> tuple[str, str, list[str]]:
             ["Review field usage, picklist dependencies, and affected templates."],
         )
 
-    return ("LOW", "A low-risk configuration property changed.", ["Review during normal release validation."])
+    return (
+        "LOW",
+        "A low-risk configuration property changed.",
+        ["Review during normal release validation."],
+    )
 
 
-def _path_changed_to(paths: set[str], before_after: set[tuple[str, str, str]], suffix: str, target: str) -> bool:
+def _path_changed_to(
+    paths: set[str], before_after: set[tuple[str, str, str]], suffix: str, target: str
+) -> bool:
     if not any(path.endswith(suffix) for path in paths):
         return False
-    return any(path.endswith(suffix) and after.lower() == target for path, _before, after in before_after)
+    return any(
+        path.endswith(suffix) and after.lower() == target for path, _before, after in before_after
+    )

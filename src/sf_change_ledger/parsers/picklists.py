@@ -8,7 +8,6 @@ from typing import Any
 from sf_change_ledger.models import ConfigObject
 from sf_change_ledger.normalise import normalise_value
 
-
 PICKLIST_ID_KEYS = ("picklistId", "picklist_id", "Picklist ID", "id")
 VALUE_ID_KEYS = ("externalCode", "external_code", "External Code", "optionId", "value")
 

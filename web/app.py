@@ -6,14 +6,12 @@ from io import BytesIO
 from pathlib import Path
 
 from flask import Flask, abort, render_template, request, send_file
-from werkzeug.datastructures import FileStorage
-from werkzeug.utils import secure_filename
-
 from sf_change_ledger.diff import compare_snapshots
 from sf_change_ledger.ingest import load_snapshot
 from sf_change_ledger.report import render_excel, render_html, render_json, render_markdown
 from sf_change_ledger.risk import assess_diff
-
+from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 
 ALLOWED_EXTENSIONS = {".xml", ".json", ".csv"}
 REPORTS: dict[str, object] = {}
@@ -139,9 +137,7 @@ def create_app() -> Flask:
     return app
 
 
-def _validate_uploads(
-    before_files: list[FileStorage], after_files: list[FileStorage]
-) -> list[str]:
+def _validate_uploads(before_files: list[FileStorage], after_files: list[FileStorage]) -> list[str]:
     errors: list[str] = []
     if not any(file.filename for file in before_files):
         errors.append("Choose at least one Before file.")
