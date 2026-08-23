@@ -18,6 +18,10 @@ jobs:
         with:
           python-version: "3.11"
           cache: pip
+      - name: Install shared SDK
+        run: >-
+          python -m pip install
+          "sapsf-shared @ git+https://github.com/SahirVhora/sapsf-shared.git@5eae7c0ca1c063ecbea36c57f2eeb0ab1193a540"
       - name: Install dependencies
         run: pip install -r requirements-dev.txt
       - name: Lint
