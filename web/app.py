@@ -6,6 +6,7 @@ from io import BytesIO
 from pathlib import Path
 
 from flask import Flask, abort, render_template, request, send_file
+from sf_change_ledger.assurance import render_assurance
 from sf_change_ledger.diff import compare_snapshots
 from sf_change_ledger.ingest import load_snapshot
 from sf_change_ledger.report import render_excel, render_html, render_json, render_markdown
@@ -114,6 +115,20 @@ def create_app() -> Flask:
                 False,
             ),
         }
+        if format_name == "assurance":
+            evidence = render_json(result).encode("utf-8")
+            content = render_assurance(
+                result,
+                evidence,
+                run_id=f"change-ledger-{report_id}",
+                evidence_type="change_report_json",
+            )
+            return send_file(
+                BytesIO(content.encode("utf-8")),
+                mimetype="application/json; charset=utf-8",
+                as_attachment=True,
+                download_name="sf-change-ledger-assurance.json",
+            )
         renderer_data = renderers.get(format_name)
         if renderer_data is None:
             abort(404)
