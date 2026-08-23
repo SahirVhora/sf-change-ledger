@@ -52,3 +52,13 @@ def test_every_report_gets_restricted_assurance_sidecar(tmp_path: Path):
     assert report.exists()
     assert sidecar.stat().st_mode & 0o777 == 0o600
     validate_assurance_document(json.loads(sidecar.read_text(encoding="utf-8")))
+
+
+def test_runtime_requirement_sets_include_shared_sdk():
+    root = Path(__file__).resolve().parents[1]
+    for filename in ("requirements.txt", "requirements-web.txt"):
+        requirements = {
+            line.split("#", 1)[0].strip().casefold()
+            for line in (root / filename).read_text(encoding="utf-8").splitlines()
+        }
+        assert any(requirement.startswith("sapsf-shared") for requirement in requirements), filename
