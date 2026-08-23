@@ -1,2 +1,3 @@
 Flask>=3.0
 openpyxl>=3.1
+sapsf-shared==0.2.0

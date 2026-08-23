@@ -15,6 +15,7 @@
     </a>
     <a class="secondary-button" href="{{ url_for('download', report_id=report_id, format_name='html') }}">HTML</a>
     <a class="secondary-button" href="{{ url_for('download', report_id=report_id, format_name='md') }}">Markdown</a>
+    <a class="secondary-button" href="{{ url_for('download', report_id=report_id, format_name='assurance') }}">Assurance JSON</a>
     <a class="icon-button" title="Download JSON" aria-label="Download JSON" href="{{ url_for('download', report_id=report_id, format_name='json') }}">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v4m13-6h3a2 2 0 0 1 2 2v4M8 21H5a2 2 0 0 1-2-2v-4m13 6h3a2 2 0 0 0 2-2v-4M9 8l-2 4 2 4m6-8 2 4-2 4"/></svg>
     </a>

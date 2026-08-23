@@ -10,6 +10,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from sf_change_ledger.assurance import write_assurance_sidecar
 from sf_change_ledger.models import DiffResult
 
 
@@ -25,6 +26,7 @@ def write_report(result: DiffResult, out: str | Path) -> None:
         path.write_text(render_html(result), encoding="utf-8")
     else:
         path.write_text(render_markdown(result), encoding="utf-8")
+    write_assurance_sidecar(result, path)
 
 
 def render_json(result: DiffResult) -> str:
