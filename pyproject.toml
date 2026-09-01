@@ -20,7 +20,7 @@ dependencies = [
 
 [project.optional-dependencies]
 web = ["Flask>=3.0"]
-dev = ["Flask>=3.0", "pytest>=8.0", "ruff==0.15.22"]
+dev = ["Flask>=3.0", "pytest>=8.0", "ruff==0.16.5"]
 
 [project.urls]
 Homepage = "https://sahirvhora.github.io/sf-change-ledger/"
