@@ -1,6 +1,6 @@
 # SF Change Ledger
 flask==3.1.3
-werkzeug==3.1.8
+werkzeug==3.1.9
 openpyxl==3.1.5
 defusedxml==0.7.1
 sapsf-shared==0.2.0
