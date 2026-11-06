@@ -1,4 +1,5 @@
+-c security-constraints.txt
 -e .
 -r requirements-web.txt
-pytest>=8.0
+pytest>=9.1.1
 ruff==0.15.22
