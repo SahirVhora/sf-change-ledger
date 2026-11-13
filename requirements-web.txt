@@ -1,4 +1,4 @@
 -c security-constraints.txt
 Flask>=3.0
 openpyxl>=3.1
-sapsf-shared==0.2.0
+sapsf-shared @ git+https://github.com/SahirVhora/sapsf-shared.git@5b9b99d07728a640178ef02f3dabe45cfcc1db97
