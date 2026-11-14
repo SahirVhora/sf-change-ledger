@@ -20,7 +20,7 @@ dependencies = [
 
 [project.optional-dependencies]
 web = ["Flask>=3.0"]
-dev = ["Flask>=3.0", "pytest>=8.0", "ruff==0.15.22"]
+dev = ["Flask>=3.0", "pytest>=8.0", "ruff==0.17.3"]
 
 [project.urls]
 Homepage = "https://sahirvhora.github.io/sf-change-ledger/"
@@ -39,3 +39,8 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]
+
+[tool.ruff.lint]
+# Preserve the project's Ruff 0.15 lint contract when upgrading the tool.
+# Additional style and modernization rules can be enabled in focused changes.
+select = ["E4", "E7", "E9", "F"]
