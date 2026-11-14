@@ -15,7 +15,7 @@ requires-python = ">=3.11"
 dependencies = [
   "openpyxl>=3.1",
   "defusedxml>=0.7",
-  "sapsf-shared>=0.1.1",
+  "sapsf-shared @ git+https://github.com/SahirVhora/sapsf-shared.git@da247058792dd30cfed282fd2001b7aaa5a34ff2",
 ]
 
 [project.optional-dependencies]
@@ -39,3 +39,8 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src", "."]
+
+[tool.ruff.lint]
+# Preserve the project's Ruff 0.15 lint contract when upgrading the tool.
+# Additional style and modernization rules can be enabled in focused changes.
+select = ["E4", "E7", "E9", "F"]
